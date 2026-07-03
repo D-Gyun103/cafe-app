@@ -128,9 +128,9 @@ cafe:orders    → [{ id, orderNo, items, totalPrice, customerName, phone, picku
 - [x] `admin/menus/list.html` — 메뉴 목록
 - [x] `admin/menus/list.css`
 - [x] `admin/menus/list.js`
-- [ ] `admin/menus/detail.html` — 메뉴 상세
-- [ ] `admin/menus/detail.css`
-- [ ] `admin/menus/detail.js`
+- [x] `admin/menus/detail.html` — 메뉴 상세
+- [x] `admin/menus/detail.css`
+- [x] `admin/menus/detail.js`
 - [ ] `admin/menus/create.html` — 메뉴 추가
 - [ ] `admin/menus/create.css`
 - [ ] `admin/menus/create.js`

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>메뉴 상세 - 카페 관리자</title>
+    <link rel="stylesheet" href="../../css/variables.css" />
+    <link rel="stylesheet" href="detail.css" />
+  </head>
+  <body>
+    <header class="page-header">
+      <a href="list.html" class="link-back">← 메뉴 목록</a>
+      <button type="button" class="btn btn-outline" disabled title="다음 단계에서 제공됩니다.">
+        수정
+      </button>
+    </header>
+
+    <main class="menu-detail-page">
+      <div id="menuDetail"></div>
+      <p id="notFound" class="empty-state" hidden>해당 메뉴를 찾을 수 없습니다.</p>
+    </main>
+
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/data.js"></script>
+    <script src="detail.js"></script>
+  </body>
+</html>

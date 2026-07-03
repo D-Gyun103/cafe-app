@@ -27,9 +27,7 @@ function renderMenuCard(menu) {
         <button type="button" class="btn-outline" data-action="toggle-sold-out" data-id="${menu.id}">
           ${menu.soldOut ? "판매 재개" : "품절 처리"}
         </button>
-        <button type="button" class="btn-outline" disabled title="다음 단계에서 제공됩니다.">
-          상세
-        </button>
+        <a href="detail.html?id=${menu.id}" class="btn-outline">상세</a>
       </div>
     </div>
   `;
