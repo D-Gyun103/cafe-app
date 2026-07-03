@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import OptionSelector from "@/components/customer/OptionSelector";
+import CartLink from "@/components/customer/CartLink";
 
 export default async function CustomerMenuDetailPage({
   searchParams,
@@ -19,10 +20,11 @@ export default async function CustomerMenuDetailPage({
 
   return (
     <div className="min-h-screen bg-zinc-50">
-      <header className="border-b border-zinc-200 bg-white px-6 py-4">
+      <header className="flex items-center justify-between border-b border-zinc-200 bg-white px-6 py-4">
         <Link href="/my/menu/list.html" className="text-sm text-zinc-600 hover:text-zinc-900">
           ← 메뉴 목록
         </Link>
+        <CartLink />
       </header>
       <main className="mx-auto max-w-2xl px-6 py-8">
         {!menuItem ? (
@@ -56,7 +58,13 @@ export default async function CustomerMenuDetailPage({
               </p>
             ) : (
               <div className="mt-6">
-                <OptionSelector basePrice={menuItem.basePrice} optionGroups={menuItem.optionGroups} />
+                <OptionSelector
+                  menuItemId={menuItem.id}
+                  name={menuItem.name}
+                  imageUrl={menuItem.imageUrl}
+                  basePrice={menuItem.basePrice}
+                  optionGroups={menuItem.optionGroups}
+                />
               </div>
             )}
           </div>

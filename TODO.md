@@ -33,9 +33,9 @@
 - [x] `MenuCard`, `OptionSelector` 컴포넌트 구현
 
 ## System 3. 장바구니 관리 시스템 (고객)
-- [ ] Zustand `cartStore` 구현 (localStorage persist)
-- [ ] `/my/cart` 페이지: 항목 목록/수량 조절/삭제, 합계 표시
-- [ ] `CartSummary` 컴포넌트 구현
+- [x] Zustand `cartStore` 구현 (localStorage persist)
+- [x] `/my/cart` 페이지: 항목 목록/수량 조절/삭제, 합계 표시
+- [x] `CartSummary` 컴포넌트 구현
 
 ## System 4. 주문 관리 시스템 (고객 주문 + 관리자 관리)
 - [ ] `POST /api/orders` 구현 (주문 생성, 주문번호 채번 로직)

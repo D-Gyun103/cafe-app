@@ -1,6 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import { buildCartItemId, useCartStore } from "@/lib/cartStore";
 
 interface OptionChoice {
   id: string;
@@ -17,11 +19,22 @@ interface OptionGroup {
 }
 
 interface OptionSelectorProps {
+  menuItemId: string;
+  name: string;
+  imageUrl: string | null;
   basePrice: number;
   optionGroups: OptionGroup[];
 }
 
-export default function OptionSelector({ basePrice, optionGroups }: OptionSelectorProps) {
+export default function OptionSelector({
+  menuItemId,
+  name,
+  imageUrl,
+  basePrice,
+  optionGroups,
+}: OptionSelectorProps) {
+  const router = useRouter();
+  const addItem = useCartStore((state) => state.addItem);
   const [selected, setSelected] = useState<Record<string, string[]>>({});
   const [quantity, setQuantity] = useState(1);
 
@@ -54,6 +67,37 @@ export default function OptionSelector({ basePrice, optionGroups }: OptionSelect
   const missingRequired = optionGroups.some(
     (group) => group.required && (selected[group.id] ?? []).length === 0
   );
+
+  function handleAddToCart() {
+    if (missingRequired) return;
+
+    const chosenOptions = optionGroups.flatMap((group) =>
+      group.choices
+        .filter((choice) => (selected[group.id] ?? []).includes(choice.id))
+        .map((choice) => ({
+          groupId: group.id,
+          groupName: group.name,
+          choiceId: choice.id,
+          choiceName: choice.name,
+          extraPrice: choice.extraPrice,
+        }))
+    );
+
+    addItem(
+      {
+        cartItemId: buildCartItemId(menuItemId, chosenOptions),
+        menuItemId,
+        name,
+        imageUrl,
+        basePrice,
+        unitPrice,
+        options: chosenOptions,
+      },
+      quantity
+    );
+
+    router.push("/my/cart");
+  }
 
   return (
     <div className="space-y-6">
@@ -110,11 +154,15 @@ export default function OptionSelector({ basePrice, optionGroups }: OptionSelect
           <span className="text-lg font-semibold text-zinc-900">{totalPrice.toLocaleString()}원</span>
         </div>
         <button
-          disabled
-          title="장바구니 기능은 다음 단계에서 제공됩니다."
-          className="w-full cursor-not-allowed rounded bg-zinc-300 px-4 py-3 text-sm font-medium text-zinc-500"
+          onClick={handleAddToCart}
+          disabled={missingRequired}
+          className={`w-full rounded px-4 py-3 text-sm font-medium ${
+            missingRequired
+              ? "cursor-not-allowed bg-zinc-300 text-zinc-500"
+              : "bg-zinc-900 text-white hover:bg-zinc-800"
+          }`}
         >
-          장바구니 담기 (준비중)
+          장바구니 담기
         </button>
         {missingRequired && (
           <p className="mt-2 text-xs text-red-500">필수 옵션을 모두 선택해주세요.</p>
